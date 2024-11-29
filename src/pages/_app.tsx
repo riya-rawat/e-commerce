@@ -4,10 +4,16 @@ import '../assets/css/globals.scss';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import store from '../common/redux-store/store'
-function MyApp({ Component, pageProps }: AppProps) {
+import { SWRConfig } from 'swr';
+import { localStorageCache } from '../common/lib/localstorageCache';
 
+function MyApp({ Component, pageProps }: AppProps) {
+  const cache = localStorageCache();
   return (
-  <Provider store={store}><Component {...pageProps} /></Provider>);
+    <SWRConfig value={{ provider: () => cache }}>
+      <Provider store={store}><Component {...pageProps} /></Provider>;
+    </SWRConfig>
+  )
 }
 
 export default MyApp;

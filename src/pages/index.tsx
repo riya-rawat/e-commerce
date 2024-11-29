@@ -13,9 +13,10 @@ export async function getServerSideProps() {
 export default function Home(props:productPropType) {
   const initialData = props?.initialData?.res;
   const { data: products, error } = useSWR(apiUrl, fetcher, {
-    initialData,
-    revalidateOnFocus: false,
-    refreshInterval: 60000, // Revalidate every minute
+    fallbackData:initialData,
+    revalidateOnFocus: false, // Re-fetch the data when the window is focused
+    dedupingInterval: 1800000, // Cache deduplication (prevents duplicate requests within this time interval)
+    refreshInterval: 1800000, // Automatically refresh the data every 30 minutes (in ms) 
   });
 
   if (error) return <div>Error loading products</div>;
@@ -23,7 +24,7 @@ export default function Home(props:productPropType) {
   return (
     <div className="container">
       <h1 className={styles.pageHeading}>All Products</h1>
-      <div className="row">
+      <div className="row" data-testid="produc-row">
         {products?.map((item: itemType) => {
           return <Cards key={item?.id} data={item}/>;
         })}

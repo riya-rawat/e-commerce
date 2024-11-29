@@ -13,10 +13,12 @@ const Cards = (props:{key:string|number;data:itemType}) =>{
     const handleSetItem = () => {
         dispatch(setItem(props?.data)); // Dispatch action to increment counter
       };
+
+      
     return (
         <>
             <div className={`col-md-4 col-12 ${styles.productCard}`} >
-                <div className="card w-100 h-100 p-20" onClick={handleSetItem}>
+                <a className="card w-100 h-100 p-20" onClick={handleSetItem} href="javascript:void(0)">
                     <div className={`${styles.productImages} d-block content-slide-img-container1`}>
                         <Image
                             src={props?.data?.image}
@@ -24,7 +26,6 @@ const Cards = (props:{key:string|number;data:itemType}) =>{
                             width={50}
                             height={100}
                             layout="responsive"  // This makes the image responsive
-                            priority={false}  // Set false for lazy loading
                             loading="lazy"
                             className={`${styles['card-img'] }`}
                         />
@@ -33,7 +34,7 @@ const Cards = (props:{key:string|number;data:itemType}) =>{
                         <h5 className={styles['card-title']}>{props?.data.title}</h5>
                         <p className="card-text">{props?.data?.price}</p>
                     </div>
-                </div>
+                </a>
             </div>
 
             {data?.value && <Modal />}
