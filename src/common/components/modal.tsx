@@ -8,12 +8,11 @@ const Modal = () =>{
     const data = useSelector((state:{value:itemType|null}) => {return state?.value;}); // Access Redux state
 
     const handleRemoveItem = () => {
-        dispatch(removeItem()); // Dispatch action to decrement counter
+        dispatch(removeItem()); // Dispatch action to remove the item;
      };
 
      useEffect(() => {
         if (data) {
-          // Set focus to the first element inside the modal (e.g., the form or button)
           modalRef.current?.focus();
         }
       }, [data]);

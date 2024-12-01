@@ -46,3 +46,8 @@ a {
 button:focus {
   border: #0a0a0a 10px;
 }
+
+span:focus {
+  outline: 2px solid blue;
+  background-color: #f0f0f0;
+}
